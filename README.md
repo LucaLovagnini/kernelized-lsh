@@ -1,5 +1,5 @@
-Kernelized locality sensitive hashing
-+=====================================
+KERNELIZED LOCALITY SENSITIVE HASHING
+=====================================
 DESCRIPTION
 ===========
 This module is a Python implementation of
