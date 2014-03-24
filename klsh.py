@@ -69,12 +69,13 @@ class KLSH(KLSHBase):
 
     def knn(self, vector, knum, stored=False):
         if stored == False:
-            hashed_array = self.hash.do_hashing(self.dataMat, vector, self.W)
+            hashed_array = self.hash.do_hashing(vector, self.dataMat, self.W)#vector must be the first argument
             knn_vectors = self.bucket.select_knn(knum, hashed_array)
         else:
             self.W = self.load_Wmat()
             self.bucket.load_buckets()
-            hashed_array = self.hash.do_hashing(self.dataMat, vector, self.W)
+            hashed_array = self.hash.do_hashing(vector, self.dataMat, self.W)
+            #hashed_array = self.hash.do_hashing(self.dataMat, vector, self.W)
             knn_vectors = self.bucket.select_knn(knum, hashed_array)
 
         return knn_vectors
@@ -93,11 +94,12 @@ class KLSH(KLSHBase):
 
 
 if __name__ == '__main__':
-    klsh = KLSH(b=300, t=30)
+    klsh = KLSH(b=200, t=30)
     klsh.loadDataSet("training_set.txt")
     #klsh.preprocessing()
     vect = [1,10,1,11,1,13,1,12,1,1,9]
     vect = np.mat(vect,dtype=np.float64)
     #knn_vects = klsh.knn(vect,3)
     knn_vects = klsh.knn(vect,3,stored=True)
+    #knn_vects = klsh.knn(vect,3,stored=False)
     print knn_vects
